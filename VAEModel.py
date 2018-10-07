@@ -1,4 +1,4 @@
-from Evaluation import SpectralModel
+from VAE_spectra import SpectralModel
 from sklearn import preprocessing
 import numpy as np
 import torch
