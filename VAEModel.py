@@ -1,4 +1,4 @@
-from VAE_spectra import SpectralModel
+from VAE_spectra import SpectralModel, SpectralData
 from sklearn import preprocessing
 import numpy as np
 import torch
@@ -35,7 +35,7 @@ class StellarDataCapsule(Dataset):
         if self.m_normalize:
             spectrum -= self.m_spectral_mean
             label = self.m_norm_model_label.transform(label)
-            label_ivar = label_ivar *  self.m_norm_model_label.var_
+            label_ivar = label_ivar * self.m_norm_model_label.var_
 
         sample = {'spectra': spectrum,
                   'spectra_ivar': spectrum_ivar,
@@ -46,6 +46,16 @@ class StellarDataCapsule(Dataset):
             sample = self.m_transform(sample)
 
         return sample
+
+    def normalize_new_data(self,
+                           stellar_data):
+
+        return SpectralData(self.m_wavelength,
+                            stellar_data.m_spectra - self.m_spectral_mean,
+                            stellar_data.m_spectra_ivar,
+                            self.m_norm_model_label.transform(stellar_data.m_label),
+                            stellar_data.m_label_ivar * self.m_norm_model_label.var_,
+                            label_names=self.m_label_names)
 
 
 class ToTensor(object):
