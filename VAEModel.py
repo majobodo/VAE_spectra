@@ -34,7 +34,7 @@ class StellarDataCapsule(Dataset):
 
         if self.m_normalize:
             spectrum -= self.m_spectral_mean
-            label = self.m_norm_model_label.transform(label)
+            label = self.m_norm_model_label.transform(label.reshape(-1, 1))
             label_ivar = label_ivar * self.m_norm_model_label.var_
 
         sample = {'spectra': spectrum,
