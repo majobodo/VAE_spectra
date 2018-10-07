@@ -2,6 +2,7 @@ from VAE_spectra import SpectralModel, SpectralData
 from sklearn import preprocessing
 import numpy as np
 import torch
+from copy import deepcopy
 from torch.utils.data import Dataset
 
 
@@ -26,11 +27,11 @@ class StellarDataCapsule(Dataset):
 
     def __getitem__(self, idx):
 
-        spectrum = self.m_data.m_spectra[idx, :]
-        spectrum_ivar = self.m_data.m_spectra_ivar[idx, :]
+        spectrum = deepcopy(self.m_data.m_spectra[idx, :])
+        spectrum_ivar = deepcopy(self.m_data.m_spectra_ivar[idx, :])
 
-        label = self.m_data.m_label[idx, :]
-        label_ivar = self.m_data.m_label_ivar[idx, :]
+        label = deepcopy(self.m_data.m_label[idx, :])
+        label_ivar = deepcopy(self.m_data.m_label_ivar[idx, :])
 
         if self.m_normalize:
             spectrum -= self.m_spectral_mean
