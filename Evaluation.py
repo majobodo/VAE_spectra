@@ -6,7 +6,7 @@ import numpy as np
 from copy import deepcopy
 from abc import ABCMeta, abstractmethod
 
-from VAE_spectra.Dataset import SpectralData
+from Dataset import SpectralData
 
 
 class TaskCreator(object):
