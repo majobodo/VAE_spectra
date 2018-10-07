@@ -57,6 +57,8 @@ class StellarDataCapsule(Dataset):
                             stellar_data.m_label_ivar * self.m_norm_model_label.var_,
                             label_names=self.m_label_names)
 
+    # TODO de-normalize the results
+
 
 class ToTensor(object):
 
