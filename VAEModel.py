@@ -66,10 +66,10 @@ class ToTensor(object):
         spectrum, spectrum_ivar = sample['spectra'], sample['spectra_ivar']
         label, label_ivar = sample['labels'], sample['label_ivar']
 
-        return {'spectra': torch.from_numpy(spectrum).view(1, 1, -1).float(),
-                'spectra_ivar': torch.from_numpy(spectrum_ivar).view(1, 1, -1).float(),
-                'labels': torch.from_numpy(label).view(1, -1).float(),
-                'label_ivar': torch.from_numpy(label_ivar).view(1, -1).float()}
+        return {'spectra': torch.from_numpy(spectrum).view(1, 1, -1),
+                'spectra_ivar': torch.from_numpy(spectrum_ivar).view(1, 1, -1),
+                'labels': torch.from_numpy(label).view(1, -1),
+                'label_ivar': torch.from_numpy(label_ivar).view(1, -1)}
 
 
 class VAEModel(SpectralModel):
