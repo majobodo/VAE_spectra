@@ -20,6 +20,7 @@ class StellarDataCapsule(Dataset):
         self.m_transform = transform
 
         self.m_norm_model_label = preprocessing.StandardScaler().fit(stelar_data.m_label)
+        self.m_norm_model_spectra = preprocessing.StandardScaler().fit(stelar_data.m_spectra)
         self.m_spectral_mean = np.mean(stelar_data.m_spectra)
 
     def __len__(self):
@@ -34,7 +35,9 @@ class StellarDataCapsule(Dataset):
         label_ivar = deepcopy(self.m_data.m_label_ivar[idx, :])
 
         if self.m_normalize:
-            spectrum -= self.m_spectral_mean
+            spectrum = self.m_norm_model_spectra.transform(spectrum.reshape(1, -1)).reshape(-1)
+            spectrum_ivar = spectrum_ivar * self.m_norm_model_spectra.var_
+
             label = self.m_norm_model_label.transform(label.reshape(1, -1)).reshape(-1)
             label_ivar = label_ivar * self.m_norm_model_label.var_
 
