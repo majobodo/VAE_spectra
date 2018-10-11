@@ -228,6 +228,7 @@ class SpectralVAEModel(SpectralModel):
         recon_criterion = Chi2Loss()
 
         print("Training the network...")
+        torch.set_grad_enabled(True)
 
         for epoch in range(self.m_training_epochs):
 
@@ -266,6 +267,7 @@ class SpectralVAEModel(SpectralModel):
                   "; loss recon   " + str(running_loss_recon / iterations))
 
         print("Finished the training")
+        torch.set_grad_enabled(False) # we are now in prediction mode and do not keep gradients
 
     # TODO implement loop for large test data
     def infer_labels_from_spectra(self,
