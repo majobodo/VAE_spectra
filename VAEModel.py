@@ -170,7 +170,7 @@ class KLLoss(nn.Module):
         comp_1 = (mu - mu_pred) ** 2 * inv_var
         comp_2 = log_var_pred.exp() * inv_var
 
-        device = torch.device('cuda:0' if torch.cuda.is_avaliable() else 'cpu')
+        device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
         zeros = torch.zeros(inv_var.size(), device=device, dtype=torch.float64)
         comp_3 = - torch.where(inv_var == 0, zeros, inv_var.log())
 
