@@ -2,14 +2,13 @@ from VAE_spectra import SpectralModel, SpectralData
 
 from sklearn import preprocessing
 import numpy as np
-import torch
 from copy import deepcopy
 
+import torch
 from torch.utils.data import Dataset
 from torch import nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
-import torch.nn.functional as F
 
 
 class StellarDataCapsule(Dataset):
@@ -201,7 +200,9 @@ class SpectralVAEModel(SpectralModel):
 
         self.m_kl_weight = kl_weight
 
-        self.m_device = torch.device('cuda:0' if torch.cuda.is_avaliable() else 'cpu')
+        print(torch.cuda.is_avaliable())
+
+        self.m_device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
         self.m_network = SpectralVAENetwork().to(self.m_device)
         self.m_optimizer = optim.Adam(self.m_network.parameters(),
                                       lr=0.00001,
