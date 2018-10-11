@@ -193,7 +193,7 @@ class Chi2Loss(nn.Module):
         return Recon_loss
 
 
-class VAEModel(SpectralModel):
+class SpectralVAEModel(SpectralModel):
 
     def __init__(self,
                  kl_weight,
