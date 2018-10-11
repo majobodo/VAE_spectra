@@ -200,8 +200,6 @@ class SpectralVAEModel(SpectralModel):
 
         self.m_kl_weight = kl_weight
 
-        print(torch.cuda.is_avaliable())
-
         self.m_device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
         self.m_network = SpectralVAENetwork().to(self.m_device)
         self.m_optimizer = optim.Adam(self.m_network.parameters(),
