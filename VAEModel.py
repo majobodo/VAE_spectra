@@ -76,7 +76,11 @@ class StellarDataCapsule(Dataset):
                                norm_label,
                                norm_label_ivar):
         label = self.m_norm_model_label.inverse_transform(norm_label)
-        ivar = norm_label_ivar / self.m_norm_model_label.var_
+        # avoid division by 0
+        zero_save_ivar = deepcopy(self.m_norm_model_label.var_)
+        zero_save_ivar[np.where(zero_save_ivar == 0)] = 1.
+
+        ivar = norm_label_ivar / zero_save_ivar
 
         return label, ivar
 
