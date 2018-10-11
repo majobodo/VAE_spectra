@@ -276,10 +276,10 @@ class SpectralVAEModel(SpectralModel):
         fluxes_norm_cuda = torch.from_numpy(deepcopy(fluxes_norm)).to(self.m_device)
 
         pred_label_norm, log_ivar = self.m_network.encode(fluxes_norm_cuda)
-        label_ivar = np.exp(log_ivar.cpu().numpy())
+        label_ivar = np.exp(log_ivar.cpu().detach().numpy())
 
         # for the moment we do not use the label ivar
-        return self.m_training_data.de_normalize_new_label(pred_label_norm.cpu().numpy(),
+        return self.m_training_data.de_normalize_new_label(pred_label_norm.cpu().detach().numpy(),
                                                            label_ivar)[0]
 
     def infer_spectra_from_labels(self,
@@ -291,4 +291,4 @@ class SpectralVAEModel(SpectralModel):
 
         pred_spectra_norm = self.m_network.decode(label_norm_cuda)
 
-        return self.m_training_data.de_normalize_new_spectra(pred_spectra_norm.cpu().numpy())
+        return self.m_training_data.de_normalize_new_spectra(pred_spectra_norm.cpu().detach().numpy())
