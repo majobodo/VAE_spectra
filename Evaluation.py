@@ -307,13 +307,13 @@ class Evaluator(object):
             self.m_ground_truth.m_spectra_ivar[tmp_task.m_test_split_ids] = \
                 tmp_task.m_test_data.m_spectra_ivar
 
-            # set validation
+            # set test
             self.m_test_result.m_label[tmp_task.m_test_split_ids] = \
                 tmp_task.m_test_results.m_label
             self.m_test_result.m_spectra[tmp_task.m_test_split_ids] = \
                 tmp_task.m_test_results.m_spectra
 
-            # set test
+            # set validation
             self.m_validation_result.m_label[tmp_task.m_validation_split_ids] = \
                 test_task.m_validation_result.m_label
             self.m_validation_result.m_spectra[tmp_task.m_validation_split_ids] = \
@@ -330,9 +330,11 @@ class Evaluator(object):
             (self.m_test_result.m_label - self.m_ground_truth.m_label)**2 \
             * self.m_ground_truth.m_label_ivar
 
+        # TODO fix correct gt
+        '''
         self.m_chi2_error_labels_validation = \
             (self.m_validation_result.m_label - self.m_ground_truth.m_label)**2 \
-            * self.m_ground_truth.m_label_ivar
+            * self.m_ground_truth.m_label_ivar'''
 
         self.m_chi2_error_spectra_test = \
             (self.m_test_result.m_spectra - self.m_ground_truth.m_spectra) ** 2 \
